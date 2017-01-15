@@ -1,5 +1,7 @@
 # homebridge-gpio-garagedoor
 [RPi](https://www.raspberrypi.org) GPIO based Garage Door plugin for [Homebridge](https://github.com/nfarina/homebridge)
+Based on KraigM's work at (https://github.com/KraigM/homebridge-gpio-garagedoor)
+Modified slightly for easier use with Australian roller doors, utilising a constant high state. When changing door state gpio state is set to off to trigger the door, waiting thousand milliseconds and then turning on again to returning to a constant high state.
 
 # Installation
 
