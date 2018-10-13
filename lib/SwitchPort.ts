@@ -18,7 +18,7 @@ export default class SwitchPort extends GPIOPort {
 	}
 
 	constructor(pin, service, log, doorSensor: DoorSensorPort, doorOpensInSeconds) {
-		super(pin, 'out');
+		super(pin, 'high');
 		this.service = service;
 		this.log = log;
 		this.isOperating = false;
@@ -42,14 +42,14 @@ export default class SwitchPort extends GPIOPort {
 
 			self.isOperating = true;
 			self.log.debug("Started operation");
-			self.writeAsync(GPIOState.On)
+			self.writeAsync(GPIOState.Off)
 				.then(function () {
 					service.setCharacteristic(Characteristic.CurrentDoorState, asOperationState(state));
 				})
 				.asCallback(callback)
 				.delay(1000)
 				.then(function () {
-					return self.writeAsync(GPIOState.Off);
+					return self.writeAsync(GPIOState.On);
 				})
 				.delay(doorOpensInSeconds * 1000)
 				.catch(function (err) {
