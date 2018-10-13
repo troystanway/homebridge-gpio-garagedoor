@@ -42,14 +42,14 @@ export default class SwitchPort extends GPIOPort {
 
 			self.isOperating = true;
 			self.log.debug("Started operation");
-			self.writeAsync(GPIOState.Off)
+			self.writeAsync(GPIOState.On)
 				.then(function () {
 					service.setCharacteristic(Characteristic.CurrentDoorState, asOperationState(state));
 				})
 				.asCallback(callback)
 				.delay(1000)
 				.then(function () {
-					return self.writeAsync(GPIOState.On);
+					return self.writeAsync(GPIOState.Off);
 				})
 				.delay(doorOpensInSeconds * 1000)
 				.catch(function (err) {
